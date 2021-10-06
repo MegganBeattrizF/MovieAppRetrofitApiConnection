@@ -63,13 +63,14 @@
 
             <SearchView
                 android:id="@+id/searchView"
-                android:layout_width="290dp"
+                android:layout_width="0dp"
                 android:layout_height="38dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/bg_custom_search_view"
                 android:searchIcon="@drawable/ic_search"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageButtonFilters"
                 app:layout_constraintStart_toStartOf="@+id/textCharactersMenu"
                 app:layout_constraintTop_toBottomOf="@+id/textCharactersMenu"
                 tools:targetApi="lollipop" />
@@ -80,12 +81,16 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/bg_custom_search_view"
+                android:contentDescription="@string/contentDescriptionFilterImageButton"
                 android:src="@drawable/ic_filter"
                 app:layout_constraintBottom_toBottomOf="@+id/searchView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/searchView"
-                app:layout_constraintTop_toTopOf="@+id/searchView"
-                android:contentDescription="@string/contentDescriptionFilterImageButton" />
+                app:layout_constraintTop_toTopOf="@+id/searchView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
