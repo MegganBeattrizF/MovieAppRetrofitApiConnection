@@ -9,4 +9,6 @@
     <string name="textMoviesTitle">Filmes</string>
     <string name="textVideosTitle">Vídeos</string>
     <string name="contentDescriptionFilterImageButton">Botão filtrar itens da lista</string>
+    <string name="textViewVotesTitle">Votos:</string>
+    <string name="contentDescriptionImageMoviePoster">Imagem que representa a capa do filme</string>
 </resources>
