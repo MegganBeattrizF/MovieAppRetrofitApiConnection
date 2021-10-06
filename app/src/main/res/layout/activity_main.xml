@@ -24,42 +24,42 @@
             tools:layout_editor_absoluteX="16dp">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textCharactersMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Personagens"
+                android:text="@string/textCharactersTitle"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textMoviesMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:fontFamily="@font/roboto"
-                android:text="Filmes"
+                android:text="@string/textMoviesTitle"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintStart_toEndOf="@+id/textView" />
+                app:layout_constraintBottom_toBottomOf="@+id/textCharactersMenu"
+                app:layout_constraintStart_toEndOf="@+id/textCharactersMenu" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textVideosMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:fontFamily="@font/roboto"
-                android:text="Vídeos"
+                android:text="@string/textVideosTitle"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                app:layout_constraintStart_toEndOf="@+id/textView2" />
+                app:layout_constraintBottom_toBottomOf="@+id/textMoviesMenu"
+                app:layout_constraintStart_toEndOf="@+id/textMoviesMenu" />
 
             <SearchView
                 android:id="@+id/searchView"
@@ -70,11 +70,12 @@
                 android:background="@drawable/bg_custom_search_view"
                 android:searchIcon="@drawable/ic_search"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintStart_toStartOf="@+id/textCharactersMenu"
+                app:layout_constraintTop_toBottomOf="@+id/textCharactersMenu"
+                tools:targetApi="lollipop" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/imageButtonFilters"
                 android:layout_width="48dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
@@ -83,7 +84,8 @@
                 android:src="@drawable/ic_filter"
                 app:layout_constraintBottom_toBottomOf="@+id/searchView"
                 app:layout_constraintStart_toEndOf="@+id/searchView"
-                app:layout_constraintTop_toTopOf="@+id/searchView" />
+                app:layout_constraintTop_toTopOf="@+id/searchView"
+                android:contentDescription="@string/contentDescriptionFilterImageButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
