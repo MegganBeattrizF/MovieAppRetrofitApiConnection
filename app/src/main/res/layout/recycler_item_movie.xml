@@ -31,12 +31,12 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:fontFamily="@font/roboto_bold"
-                tools:text="Título"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Título" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -50,11 +50,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                tools:text="titulo original"
                 android:textColor="@color/colorGray"
                 app:layout_constraintEnd_toEndOf="@+id/textViewMovieTitle"
                 app:layout_constraintStart_toStartOf="@+id/textViewMovieTitle"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMovieTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewMovieTitle"
+                tools:text="titulo original" />
 
             <TextView
                 android:id="@+id/textViewVotesTitle"
@@ -73,10 +73,10 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginLeft="2dp"
                 android:fontFamily="@font/roboto_bold"
-                tools:text="0000"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@+id/textViewVotesTitle"
-                app:layout_constraintTop_toBottomOf="@+id/textViewOriginTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewOriginTitle"
+                tools:text="0000" />
 
             <TextView
                 android:id="@+id/textViewMediaValue"
@@ -84,11 +84,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
-                tools:text="8.2"
                 android:textColor="@color/colorYellow"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="@+id/textViewVotesTitle"
-                app:layout_constraintTop_toBottomOf="@+id/textViewVotesTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewVotesTitle"
+                tools:text="8.2" />
 
             <RatingBar
                 android:id="@+id/ratingBarPopularity"
@@ -97,9 +97,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:isIndicator="true"
-                android:stepSize="0.1"
-                android:numStars="5"
                 android:max="5"
+                android:numStars="5"
+                android:stepSize="0.1"
                 android:theme="@style/RatingBar"
                 app:layout_constraintBottom_toBottomOf="@+id/textViewMediaValue"
                 app:layout_constraintStart_toEndOf="@+id/textViewMediaValue"
@@ -114,13 +114,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="24dp"
+        android:contentDescription="@string/contentDescriptionImageMoviePoster"
         android:elevation="3dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardView2"
-        tools:targetApi="lollipop"
-        android:contentDescription="@string/contentDescriptionImageMoviePoster" />
+        tools:targetApi="lollipop" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
