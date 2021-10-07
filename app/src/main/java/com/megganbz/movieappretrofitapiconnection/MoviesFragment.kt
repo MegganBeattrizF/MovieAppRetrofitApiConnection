@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.megganbz.movieappretrofitapiconnection.databinding.FragmentCharactersBinding
-import com.megganbz.movieappretrofitapiconnection.databinding.FragmentFavoritesBinding
+import com.megganbz.movieappretrofitapiconnection.databinding.FragmentMoviesBinding
 
-class FavoritesFragment : MainActivity.FragmentController(R.layout.fragment_favorites) {
-    private var _binding: FragmentFavoritesBinding? = null
+class MoviesFragment : MainActivity.FragmentController(R.layout.activity_description_movie) {
+
+    private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +20,7 @@ class FavoritesFragment : MainActivity.FragmentController(R.layout.fragment_favo
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFavoritesBinding.inflate(inflater,container, false)
+        _binding = FragmentMoviesBinding.inflate(inflater,container, false)
         return binding.root
     }
 
