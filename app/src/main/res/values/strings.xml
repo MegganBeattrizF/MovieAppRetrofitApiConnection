@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">MovieAppRetrofitApiConnection</string>
+    <string name="itemMenuHome">Home</string>
+    <string name="itemMenuFavorite">Favoritos</string>
+    <string name="itemMenuAccount">Conta</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textCharactersTitle">Personagens</string>
+    <string name="textMoviesTitle">Filmes</string>
+    <string name="textVideosTitle">Vídeos</string>
+    <string name="contentDescriptionFilterImageButton">Botão filtrar itens da lista</string>
+    <string name="textViewVotesTitle">Votos:</string>
+    <string name="contentDescriptionImageMoviePoster">Imagem que representa a capa do filme</string>
+    <string name="textViewDurationTitle">Duração:</string>
+    <string name="textViewDurationTimeType">min</string>
+    <string name="contentDescriptionButtonPlay">Botão para dar play ao filme</string>
+    <string name="textViewActorsTitle">Atores</string>
+    <string name="textViewDetailsTitle">Detalhes</string>
+    <string name="textViewDirectorTitle">Diretor:</string>
+    <string name="textViewReleaseTitle">Lançamento:</string>
+    <string name="textViewBudgetTitle">Orçamento:</string>
+    <string name="textViewRevenueTitile">Bilheteria:</string>
+    <string name="contentDescriptionImageDirector">imagem do diretor do filme</string>
+    <string name="contentDescriptionButtonBackToHome">Botão de voltar para lista de filmes</string>
 </resources>
