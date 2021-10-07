@@ -6,8 +6,8 @@
         <item name="colorPrimaryVariant">@color/purpleDarkLight</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorYellow</item>
-        <item name="colorSecondaryVariant">@color/colorGray</item>
+        <item name="colorSecondary">@color/yellow</item>
+        <item name="colorSecondaryVariant">@color/gray</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/purpleDarkLight</item>
@@ -15,8 +15,8 @@
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/colorYellow</item>
-        <item name="colorControlActivated">@color/colorYellow</item>
+        <item name="colorControlNormal">@color/yellow</item>
+        <item name="colorControlActivated">@color/yellow</item>
     </style>
 
 </resources>

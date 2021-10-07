@@ -14,7 +14,7 @@
         android:id="@+id/homeFragment"
         android:name="com.megganbz.movieappretrofitapiconnection.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_movies" />
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.megganbz.movieappretrofitapiconnection.FavoritesFragment"

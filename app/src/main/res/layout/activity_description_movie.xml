@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:textColor="@color/colorYellow"
+                    android:textColor="@color/yellow"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@+id/textViewTitleValue"
                     app:layout_constraintTop_toBottomOf="@+id/textViewTitleValue"
@@ -87,7 +87,7 @@
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/roboto"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/gray"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textViewMediaVotesValue"
@@ -102,7 +102,7 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/textViewDurationTitle"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/gray"
                     app:layout_constraintBottom_toBottomOf="@+id/textViewMediaVotesValue"
                     app:layout_constraintEnd_toStartOf="@+id/textViewDurationValue"
                     app:layout_constraintTop_toTopOf="@+id/textViewMediaVotesValue" />
@@ -112,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/gray"
                     app:layout_constraintEnd_toStartOf="@+id/textViewDurationTimeType"
                     app:layout_constraintTop_toTopOf="@+id/textViewDurationTitle"
                     tools:text="000" />
@@ -124,7 +124,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/textViewDurationTimeType"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textViewDurationValue" />
 
@@ -236,7 +236,7 @@
                     android:layout_marginHorizontal="8dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/textViewDirectorTitle"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toEndOf="@+id/cardView4"
                     app:layout_constraintTop_toTopOf="@+id/cardView4" />
 
@@ -248,7 +248,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/textViewReleaseTitle"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
@@ -260,7 +260,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/textViewBudgetTitle"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewReleaseTitle" />
 
@@ -272,7 +272,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/textViewRevenueTitile"
-                    android:textColor="@color/colorGray"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewBudgetTitle" />
 

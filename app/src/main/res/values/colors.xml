@@ -4,7 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purpleDarkLight">#171538</color>
     <color name="purpleDark">#100E2A</color>
-    <color name="colorGray">#545e66</color>
-    <color name="colorYellow">#e4c94d</color>
-    <color name="colorBlue">#2329dc</color>
+    <color name="gray">#545e66</color>
+    <color name="yellow">#e4c94d</color>
+    <color name="blue">#2329dc</color>
+    <color name="transparencyPurple">#64000000</color>
 </resources>

@@ -50,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/gray"
                 app:layout_constraintEnd_toEndOf="@+id/textViewMovieTitle"
                 app:layout_constraintStart_toStartOf="@+id/textViewMovieTitle"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMovieTitle"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:text="@string/textViewVotesTitle"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/gray"
                 app:layout_constraintStart_toStartOf="@+id/textViewOriginTitle"
                 app:layout_constraintTop_toBottomOf="@+id/textViewOriginTitle" />
 
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_bold"
-                android:textColor="@color/colorYellow"
+                android:textColor="@color/yellow"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="@+id/textViewVotesTitle"
                 app:layout_constraintTop_toBottomOf="@+id/textViewVotesTitle"
