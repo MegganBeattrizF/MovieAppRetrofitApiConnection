@@ -22,4 +22,6 @@
     <string name="textViewRevenueTitile">Bilheteria:</string>
     <string name="contentDescriptionImageDirector">imagem do diretor do filme</string>
     <string name="contentDescriptionButtonBackToHome">Botão de voltar para lista de filmes</string>
+    <string name="contentDescriptionAddFavoriteCharacter">Imagem com um coração, clique nela para adicionar aos favoritos</string>
+    <string name="contentDescriptionViewCharacter">imagem do personagem</string>
 </resources>

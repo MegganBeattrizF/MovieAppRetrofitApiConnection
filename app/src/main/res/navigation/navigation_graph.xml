@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/moviesFragment">
+    app:startDestination="@id/charactersFragment">
 
     <fragment
         android:id="@+id/accountFragment"
@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/charactersFragment"
-        android:name="com.megganbz.movieappretrofitapiconnection.CharactersFragment"
+        android:name="com.megganbz.movieappretrofitapiconnection.characters.CharactersFragment"
         android:label="fragment_characters"
         tools:layout="@layout/fragment_characters" />
 </navigation>
