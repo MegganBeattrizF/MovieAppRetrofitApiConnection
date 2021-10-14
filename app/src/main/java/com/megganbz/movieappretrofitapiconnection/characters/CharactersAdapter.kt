@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.megganbz.domain.model.Characters
 import com.megganbz.movieappretrofitapiconnection.R
 
 class CharactersAdapter(
@@ -31,8 +32,8 @@ class CharactersAdapter(
 
         fun bind(character: Characters) {
             Glide
-                .with(itemView)
-                .load(character.thumbnail?.url)
+                .with(itemView.context)
+                .load(character.thumbnail?.path + ".${character.thumbnail?.extension}")
                 .into(imageCharacter)
             nameCharacter.text = character.name
         }

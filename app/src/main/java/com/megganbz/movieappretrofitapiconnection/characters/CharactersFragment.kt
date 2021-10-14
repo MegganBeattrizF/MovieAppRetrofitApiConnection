@@ -1,27 +1,34 @@
 package com.megganbz.movieappretrofitapiconnection.characters
 
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.megganbz.movieappretrofitapiconnection.MainActivity
 import com.megganbz.movieappretrofitapiconnection.R
+import com.megganbz.movieappretrofitapiconnection.utils.NetworkStatusChecker
 import com.megganbz.movieappretrofitapiconnection.databinding.FragmentCharactersBinding
 
 class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_characters) {
     private var _binding: FragmentCharactersBinding? = null
     private val binding get() = _binding!!
-    val viewModel: CharactersViewModel by viewModels()
-    private lateinit var recyclerViewCharacters : RecyclerView
-    private var charactersList = ArrayList<Characters>()
+    private val viewModel: CharactersViewModel by viewModels()
+
+    private val networkStatusChecker by lazy {
+        NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
+    }
+
+    private lateinit var recyclerViewCharacters: RecyclerView
     private lateinit var charactersAdapter: CharactersAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViews()
+        observerCharactersList()
         setupRecyclerView()
     }
 
@@ -29,8 +36,12 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCharactersBinding.inflate(inflater,container, false)
+        _binding = FragmentCharactersBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    private fun setupViews() {
+        viewModel.getCharactersList()
     }
 
     private fun setupRecyclerView() {
@@ -41,13 +52,15 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
             GridLayoutManager.VERTICAL,
             false
         )
-        val character1 = Characters("Bia", Image("https://www.recreio.com.br/images/large/2021/06/02/wandavision-1230176.jpg"))
-        charactersList.add(character1)
-        charactersList.add(character1)
-        charactersList.add(character1)
-        charactersAdapter = CharactersAdapter(charactersList)
+    }
 
-        recyclerViewCharacters.adapter = charactersAdapter
+    private fun observerCharactersList() {
+        networkStatusChecker.performIfConnectedToInternet {
+            viewModel.charactersList.observe(viewLifecycleOwner) {
+                charactersAdapter = CharactersAdapter(it)
+                recyclerViewCharacters.adapter = charactersAdapter
+            }
+        }
     }
 
     override fun onDestroyView() {
