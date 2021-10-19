@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@color/purpleDarkLight"
         android:paddingEnd="32dp"
-        android:paddingRight="32dp" />
+        android:paddingStart="0dp"/>
 
     <include
         android:id="@+id/charactersProgressBar"

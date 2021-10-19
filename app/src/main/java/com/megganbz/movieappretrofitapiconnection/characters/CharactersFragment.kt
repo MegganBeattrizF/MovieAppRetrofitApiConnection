@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.megganbz.movieappretrofitapiconnection.MainActivity
 import com.megganbz.movieappretrofitapiconnection.R
-import com.megganbz.movieappretrofitapiconnection.utils.NetworkStatusChecker
 import com.megganbz.movieappretrofitapiconnection.databinding.FragmentCharactersBinding
+import com.megganbz.movieappretrofitapiconnection.utils.*
 
 class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_characters) {
     private var _binding: FragmentCharactersBinding? = null
@@ -57,8 +58,37 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
     private fun observerCharactersList() {
         networkStatusChecker.performIfConnectedToInternet {
             viewModel.charactersList.observe(viewLifecycleOwner) {
-                charactersAdapter = CharactersAdapter(it)
-                recyclerViewCharacters.adapter = charactersAdapter
+                when (it) {
+                    is Success -> {
+                        charactersAdapter = CharactersAdapter(it.data)
+                        recyclerViewCharacters.adapter = charactersAdapter
+                    }
+                    is Failure -> {
+                        when (it.error) {
+                            is CredentialException -> {
+                                Toast.makeText(
+                                    context,
+                                    it.error.getLocalizedMessage(requireContext()),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                            is NetworkException -> {
+                                Toast.makeText(
+                                    context,
+                                    it.error.getLocalizedMessage(requireContext()),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                            is AuthorizationException -> {
+                                Toast.makeText(
+                                    context,
+                                    it.error.getLocalizedMessage(requireContext()),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
+                }
             }
         }
     }

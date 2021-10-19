@@ -11,7 +11,7 @@ import com.megganbz.domain.model.Characters
 import com.megganbz.movieappretrofitapiconnection.R
 
 class CharactersAdapter(
-    private var charactersList: List<Characters>
+    private var charactersList: List<Characters>? = arrayListOf()
 ) : RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
@@ -21,16 +21,17 @@ class CharactersAdapter(
     }
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
-        holder.bind(charactersList[position])
+        holder.bind(charactersList?.get(position))
     }
 
-    override fun getItemCount(): Int = charactersList.size
+    override fun getItemCount(): Int = charactersList?.size ?: 0
 
     inner class CharactersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageCharacter: ImageView = itemView.findViewById(R.id.imageViewCharacter)
         private val nameCharacter: TextView = itemView.findViewById(R.id.textViewCharacterName)
 
-        fun bind(character: Characters) {
+        fun bind(character: Characters?) {
+            character ?: return
             Glide
                 .with(itemView.context)
                 .load(character.thumbnail?.path + ".${character.thumbnail?.extension}")

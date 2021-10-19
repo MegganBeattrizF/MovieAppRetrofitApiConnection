@@ -8,6 +8,7 @@ import com.megganbz.data.CharactersRepository
 import com.megganbz.data.remote.buildApiService
 import com.megganbz.domain.model.Characters
 import com.megganbz.domain.usecases.CharactersUseCases
+import com.megganbz.movieappretrofitapiconnection.utils.*
 import kotlinx.coroutines.launch
 
 class CharactersViewModel : ViewModel() {
@@ -15,13 +16,21 @@ class CharactersViewModel : ViewModel() {
     private val apiService by lazy { buildApiService() }
     private var charactersUseCases = CharactersUseCases(CharactersRepository(apiService))
 
-    private var _charactersList = MutableLiveData<List<Characters>>()
-    val charactersList: LiveData<List<Characters>>
+    private var _charactersList = MutableLiveData<Result<List<Characters>?>>()
+    val charactersList: LiveData<Result<List<Characters>?>>
         get() = _charactersList
 
     fun getCharactersList() {
         viewModelScope.launch {
-            _charactersList.value = charactersUseCases.getCharactersList()
+            try {
+                _charactersList.postValue(Success(charactersUseCases.getCharactersList()))
+            } catch (e: CredentialException) {
+                _charactersList.postValue(Failure(e))
+            } catch (e: NetworkException) {
+                _charactersList.postValue(Failure(e))
+            } catch (e: AuthorizationException) {
+                _charactersList.postValue(Failure(e))
+            }
         }
     }
 }
