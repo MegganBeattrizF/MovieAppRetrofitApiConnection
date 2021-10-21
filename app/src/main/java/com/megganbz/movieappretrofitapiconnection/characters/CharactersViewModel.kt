@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 
 class CharactersViewModel : ViewModel() {
 
-    private val apiService by lazy { buildApiService() }
+    private val baseUrl = "https://gateway.marvel.com"
+    private val apiService by lazy { buildApiService(baseUrl) }
     private var charactersUseCases = CharactersUseCases(CharactersRepository(apiService))
 
     private var _charactersList = MutableLiveData<Result<List<Characters>?>>()
@@ -23,7 +24,14 @@ class CharactersViewModel : ViewModel() {
     fun getCharactersList(limit: Int, offset: Int) {
         viewModelScope.launch {
             try {
-                _charactersList.postValue(Success(charactersUseCases.getCharactersList(limit, offset)))
+                _charactersList.postValue(
+                    Success(
+                        charactersUseCases.getCharactersList(
+                            limit,
+                            offset
+                        )
+                    )
+                )
             } catch (e: CredentialException) {
                 _charactersList.postValue(Failure(e))
             } catch (e: NetworkException) {
