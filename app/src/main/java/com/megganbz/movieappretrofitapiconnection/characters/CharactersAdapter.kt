@@ -34,6 +34,11 @@ class CharactersAdapter(
 
     }
 
+    fun clearData() {
+        charactersList?.clear()
+        notifyDataSetChanged()
+    }
+
     inner class CharactersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageCharacter: ImageView = itemView.findViewById(R.id.imageViewCharacter)
         private val nameCharacter: TextView = itemView.findViewById(R.id.textViewCharacterName)

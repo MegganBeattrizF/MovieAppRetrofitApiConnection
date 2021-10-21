@@ -20,6 +20,7 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
     private val viewModel: CharactersViewModel by viewModels()
     private var currentPage: Int = 1
     private var offset: Int = 0
+    private val limit = 20
 
     private val networkStatusChecker by lazy {
         NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
@@ -45,7 +46,13 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
     }
 
     private fun setupViews() {
-        viewModel.getCharactersList(20, 0)
+        binding.refreshCharacters.setOnRefreshListener {
+            currentPage = 1
+            offset = 0
+            charactersAdapter.clearData()
+            viewModel.getCharactersList(limit, offset)
+        }
+        viewModel.getCharactersList(limit, offset)
     }
 
     private fun setupRecyclerView() {
@@ -62,7 +69,8 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
 
     private fun updateDataList() {
         recyclerViewCharacters.addOnScrolledToEnd {
-            val limit = 20
+            binding.refreshCharacters.isRefreshing = true
+
             offset = currentPage * limit
             viewModel.getCharactersList(limit, offset)
             currentPage += 1
@@ -74,6 +82,7 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
             viewModel.charactersList.observe(viewLifecycleOwner) {
                 when (it) {
                     is Success -> {
+                        binding.refreshCharacters.isRefreshing = false
                         if (currentPage > 1) {
                             charactersAdapter.updateList(it.data)
                         } else {
@@ -81,8 +90,6 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
                                 CharactersAdapter(it.data?.toCollection(arrayListOf()))
                             recyclerViewCharacters.adapter = charactersAdapter
                         }
-
-
                     }
                     is Failure -> {
                         when (it.error) {
