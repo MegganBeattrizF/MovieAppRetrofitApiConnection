@@ -8,6 +8,8 @@ interface RemoteApiService {
 
     @GET("/v1/public/characters")
     suspend fun getCharactersList(
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int,
         @Query("apikey") apiKey: String,
         @Query("ts") timestamp: String = getTimeStamp(),
         @Query("hash") hash: String = getHash()

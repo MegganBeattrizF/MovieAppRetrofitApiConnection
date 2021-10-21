@@ -20,10 +20,10 @@ class CharactersViewModel : ViewModel() {
     val charactersList: LiveData<Result<List<Characters>?>>
         get() = _charactersList
 
-    fun getCharactersList() {
+    fun getCharactersList(limit: Int, offset: Int) {
         viewModelScope.launch {
             try {
-                _charactersList.postValue(Success(charactersUseCases.getCharactersList()))
+                _charactersList.postValue(Success(charactersUseCases.getCharactersList(limit, offset)))
             } catch (e: CredentialException) {
                 _charactersList.postValue(Failure(e))
             } catch (e: NetworkException) {

@@ -18,6 +18,8 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
     private var _binding: FragmentCharactersBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CharactersViewModel by viewModels()
+    private var currentPage: Int = 1
+    private var offset: Int = 0
 
     private val networkStatusChecker by lazy {
         NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
@@ -25,6 +27,7 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
 
     private lateinit var recyclerViewCharacters: RecyclerView
     private lateinit var charactersAdapter: CharactersAdapter
+    private lateinit var layoutManager: GridLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,17 +45,28 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
     }
 
     private fun setupViews() {
-        viewModel.getCharactersList()
+        viewModel.getCharactersList(20, 0)
     }
 
     private fun setupRecyclerView() {
         recyclerViewCharacters = binding.recyclerViewCharacters
-        recyclerViewCharacters.layoutManager = GridLayoutManager(
+        layoutManager = GridLayoutManager(
             context,
             2,
             GridLayoutManager.VERTICAL,
             false
         )
+        updateDataList()
+        recyclerViewCharacters.layoutManager = layoutManager
+    }
+
+    private fun updateDataList() {
+        recyclerViewCharacters.addOnScrolledToEnd {
+            val limit = 20
+            offset = currentPage * limit
+            viewModel.getCharactersList(limit, offset)
+            currentPage += 1
+        }
     }
 
     private fun observerCharactersList() {
@@ -60,8 +74,15 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
             viewModel.charactersList.observe(viewLifecycleOwner) {
                 when (it) {
                     is Success -> {
-                        charactersAdapter = CharactersAdapter(it.data)
-                        recyclerViewCharacters.adapter = charactersAdapter
+                        if (currentPage > 1) {
+                            charactersAdapter.updateList(it.data)
+                        } else {
+                            charactersAdapter =
+                                CharactersAdapter(it.data?.toCollection(arrayListOf()))
+                            recyclerViewCharacters.adapter = charactersAdapter
+                        }
+
+
                     }
                     is Failure -> {
                         when (it.error) {
