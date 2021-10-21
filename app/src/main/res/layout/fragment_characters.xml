@@ -3,13 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CharactersFragment">
+    tools:context=".characters.CharactersFragment">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshCharacters"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCharacters"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purpleDarkLight" />
+        android:background="@color/purpleDarkLight"
+        android:paddingEnd="32dp"
+        android:paddingStart="0dp"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include
         android:id="@+id/charactersProgressBar"

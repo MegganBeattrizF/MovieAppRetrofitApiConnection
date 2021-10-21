@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.megganbz.movieappretrofitapiconnection.characters.CharactersFragment
 import com.megganbz.movieappretrofitapiconnection.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
