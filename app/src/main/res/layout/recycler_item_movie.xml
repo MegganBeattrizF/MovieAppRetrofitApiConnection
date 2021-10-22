@@ -51,6 +51,8 @@
                 android:layout_marginHorizontal="16dp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/gray"
+                android:ellipsize="end"
+                android:maxLines="1"
                 app:layout_constraintEnd_toEndOf="@+id/textViewMovieTitle"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMovieTitle"

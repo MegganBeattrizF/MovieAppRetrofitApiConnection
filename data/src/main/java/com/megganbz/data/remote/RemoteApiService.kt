@@ -18,6 +18,7 @@ interface RemoteApiService {
 
     @GET("movie/popular")
     suspend fun getPopularMoviesList(
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("page") page: Int
     ): MoviesListPageResult?
 }

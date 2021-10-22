@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.megganbz.domain.model.Characters
+import com.megganbz.domain.model.characters.Characters
 import com.megganbz.movieappretrofitapiconnection.R
 
 class CharactersAdapter(

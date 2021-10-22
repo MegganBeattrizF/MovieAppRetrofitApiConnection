@@ -21,15 +21,13 @@ class MoviesViewModel : ViewModel() {
     val moviesList: LiveData<Result<List<Movie>?>>
         get() = _moviesList
 
-    fun getPopularMoviesList() {
+    fun getPopularMoviesList(page: Int) {
         viewModelScope.launch {
             try {
-                _moviesList.postValue(Success(moviesUseCases.getPopularMoviesList()))
-            } catch (e: CredentialException) {
-                _moviesList.postValue(Failure(e))
+                _moviesList.postValue(Success(moviesUseCases.getPopularMoviesList(page)))
             } catch (e: NetworkException) {
                 _moviesList.postValue(Failure(e))
-            } catch (e: AuthorizationException) {
+            } catch (e: GeneralException){
                 _moviesList.postValue(Failure(e))
             }
         }

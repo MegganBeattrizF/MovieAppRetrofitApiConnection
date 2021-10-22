@@ -25,7 +25,6 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
     private val networkStatusChecker by lazy {
         NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
     }
-
     private lateinit var recyclerViewCharacters: RecyclerView
     private lateinit var charactersAdapter: CharactersAdapter
     private lateinit var layoutManager: GridLayoutManager
@@ -68,7 +67,7 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
     }
 
     private fun updateDataList() {
-        recyclerViewCharacters.addOnScrolledToEnd {
+        recyclerViewCharacters.addOnScrolledToEnd() {
             binding.refreshCharacters.isRefreshing = true
 
             offset = currentPage * limit
@@ -93,13 +92,6 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
                     }
                     is Failure -> {
                         when (it.error) {
-                            is CredentialException -> {
-                                Toast.makeText(
-                                    context,
-                                    it.error.getLocalizedMessage(requireContext()),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
                             is NetworkException -> {
                                 Toast.makeText(
                                     context,
@@ -107,7 +99,7 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
-                            is AuthorizationException -> {
+                            is GeneralException -> {
                                 Toast.makeText(
                                     context,
                                     it.error.getLocalizedMessage(requireContext()),

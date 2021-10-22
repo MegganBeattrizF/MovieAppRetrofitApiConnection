@@ -1,6 +1,6 @@
 package com.megganbz.data.dto
 
-import com.megganbz.domain.model.CharacterDataContainer
+import com.megganbz.domain.model.characters.CharacterDataContainer
 import kotlinx.serialization.Serializable
 
 @Serializable

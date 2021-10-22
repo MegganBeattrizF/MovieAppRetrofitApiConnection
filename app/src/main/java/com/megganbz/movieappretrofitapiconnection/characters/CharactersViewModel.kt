@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.megganbz.data.CharactersRepository
 import com.megganbz.data.remote.buildApiService
-import com.megganbz.domain.model.Characters
+import com.megganbz.domain.model.characters.Characters
 import com.megganbz.domain.usecases.CharactersUseCases
 import com.megganbz.movieappretrofitapiconnection.utils.*
 import kotlinx.coroutines.launch
@@ -32,11 +32,9 @@ class CharactersViewModel : ViewModel() {
                         )
                     )
                 )
-            } catch (e: CredentialException) {
-                _charactersList.postValue(Failure(e))
             } catch (e: NetworkException) {
                 _charactersList.postValue(Failure(e))
-            } catch (e: AuthorizationException) {
+            } catch (e: GeneralException) {
                 _charactersList.postValue(Failure(e))
             }
         }

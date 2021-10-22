@@ -16,7 +16,6 @@ fun buildClient(): OkHttpClient =
 
 fun buildRetrofit(baseUrl: String): Retrofit {
     val contentType = "application/json".toMediaType()
-    //val baseUrl = "https://gateway.marvel.com"
 
     return Retrofit.Builder()
         .client(buildClient())

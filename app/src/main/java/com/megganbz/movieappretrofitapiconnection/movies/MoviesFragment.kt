@@ -19,11 +19,11 @@ class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies)
     private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MoviesViewModel by viewModels()
+    private var currentPage: Int = 1
 
     private val networkStatusChecker by lazy {
         NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
     }
-
     private lateinit var recyclerViewMovies: RecyclerView
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var layoutManager: LinearLayoutManager
@@ -44,7 +44,12 @@ class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies)
     }
 
     private fun setupViews() {
-        viewModel.getPopularMoviesList()
+        binding.refreshMovies.setOnRefreshListener {
+            currentPage = 1
+            moviesAdapter.clearData()
+            viewModel.getPopularMoviesList(currentPage)
+        }
+        viewModel.getPopularMoviesList(currentPage)
     }
 
     private fun setupRecyclerView() {
@@ -52,7 +57,16 @@ class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies)
         layoutManager = LinearLayoutManager(
             context, LinearLayoutManager.VERTICAL, false
         )
+        updateDataList()
         recyclerViewMovies.layoutManager = layoutManager
+    }
+
+    private fun updateDataList() {
+        recyclerViewMovies.addOnScrolledToEnd() {
+            binding.refreshMovies.isRefreshing = true
+            currentPage += 1
+            viewModel.getPopularMoviesList(currentPage)
+        }
     }
 
     private fun observerMoviesList() {
@@ -60,18 +74,16 @@ class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies)
             viewModel.moviesList.observe(viewLifecycleOwner) {
                 when (it) {
                     is Success -> {
-                        moviesAdapter = MoviesAdapter(it.data?.toCollection(arrayListOf()))
-                        recyclerViewMovies.adapter = moviesAdapter
+                        binding.refreshMovies.isRefreshing = false
+                        if (currentPage > 1) {
+                            moviesAdapter.updateList(it.data)
+                        } else {
+                            moviesAdapter = MoviesAdapter(it.data?.toCollection(arrayListOf()))
+                            recyclerViewMovies.adapter = moviesAdapter
+                        }
                     }
                     is Failure -> {
                         when (it.error) {
-                            is CredentialException -> {
-                                Toast.makeText(
-                                    context,
-                                    it.error.getLocalizedMessage(requireContext()),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
                             is NetworkException -> {
                                 Toast.makeText(
                                     context,
@@ -79,7 +91,7 @@ class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies)
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
-                            is AuthorizationException -> {
+                            is GeneralException -> {
                                 Toast.makeText(
                                     context,
                                     it.error.getLocalizedMessage(requireContext()),
