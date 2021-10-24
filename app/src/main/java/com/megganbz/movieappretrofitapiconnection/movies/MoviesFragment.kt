@@ -1,4 +1,4 @@
-package com.megganbz.movieappretrofitapiconnection.characters
+package com.megganbz.movieappretrofitapiconnection.movies
 
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -7,32 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.megganbz.movieappretrofitapiconnection.MainActivity
 import com.megganbz.movieappretrofitapiconnection.R
-import com.megganbz.movieappretrofitapiconnection.databinding.FragmentCharactersBinding
+import com.megganbz.movieappretrofitapiconnection.databinding.FragmentMoviesBinding
 import com.megganbz.movieappretrofitapiconnection.utils.*
 
-class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_characters) {
-    private var _binding: FragmentCharactersBinding? = null
+class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies) {
+
+    private var _binding: FragmentMoviesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CharactersViewModel by viewModels()
+    private val viewModel: MoviesViewModel by viewModels()
     private var currentPage: Int = 1
-    private var offset: Int = 0
-    private val limit = 20
 
     private val networkStatusChecker by lazy {
         NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java))
     }
-    private lateinit var recyclerViewCharacters: RecyclerView
-    private lateinit var charactersAdapter: CharactersAdapter
-    private lateinit var layoutManager: GridLayoutManager
+    private lateinit var recyclerViewMovies: RecyclerView
+    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var layoutManager: LinearLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
-        observerCharactersList()
+        observerMoviesList()
         setupRecyclerView()
     }
 
@@ -40,59 +39,52 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCharactersBinding.inflate(inflater, container, false)
+        _binding = FragmentMoviesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     private fun setProgressBarVisibility(visibility: Boolean) {
-        binding.refreshCharacters.isRefreshing = visibility
+        binding.refreshMovies.isRefreshing = visibility
     }
 
     private fun setupViews() {
         setProgressBarVisibility(true)
-        binding.refreshCharacters.setOnRefreshListener {
+        binding.refreshMovies.setOnRefreshListener {
             currentPage = 1
-            offset = 0
-            charactersAdapter.clearData()
-            viewModel.getCharactersList(limit, offset)
+            moviesAdapter.clearData()
+            viewModel.getPopularMoviesList(currentPage)
         }
-        viewModel.getCharactersList(limit, offset)
+        viewModel.getPopularMoviesList(currentPage)
     }
 
     private fun setupRecyclerView() {
-        recyclerViewCharacters = binding.recyclerViewCharacters
-        layoutManager = GridLayoutManager(
-            context,
-            2,
-            GridLayoutManager.VERTICAL,
-            false
+        recyclerViewMovies = binding.recyclerViewMovies
+        layoutManager = LinearLayoutManager(
+            context, LinearLayoutManager.VERTICAL, false
         )
         updateDataList()
-        recyclerViewCharacters.layoutManager = layoutManager
+        recyclerViewMovies.layoutManager = layoutManager
     }
 
     private fun updateDataList() {
-        recyclerViewCharacters.addOnScrolledToEnd() {
-            binding.refreshCharacters.isRefreshing = true
-
-            offset = currentPage * limit
-            viewModel.getCharactersList(limit, offset)
+        recyclerViewMovies.addOnScrolledToEnd() {
+            binding.refreshMovies.isRefreshing = true
             currentPage += 1
+            viewModel.getPopularMoviesList(currentPage)
         }
     }
 
-    private fun observerCharactersList() {
+    private fun observerMoviesList() {
         networkStatusChecker.performIfConnectedToInternet {
-            viewModel.charactersList.observe(viewLifecycleOwner) {
+            viewModel.moviesList.observe(viewLifecycleOwner) {
                 when (it) {
                     is Success -> {
                         setProgressBarVisibility(false)
                         if (currentPage > 1) {
-                            charactersAdapter.updateList(it.data)
+                            moviesAdapter.updateList(it.data)
                         } else {
-                            charactersAdapter =
-                                CharactersAdapter(it.data?.toCollection(arrayListOf()))
-                            recyclerViewCharacters.adapter = charactersAdapter
+                            moviesAdapter = MoviesAdapter(it.data?.toCollection(arrayListOf()))
+                            recyclerViewMovies.adapter = moviesAdapter
                         }
                     }
                     is Failure -> {

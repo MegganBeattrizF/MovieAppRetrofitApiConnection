@@ -1,14 +1,12 @@
 package com.megganbz.movieappretrofitapiconnection.utils
 
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-fun RecyclerView.addOnScrolledToEnd(onScrolledToEnd: () -> Unit) {
-
+fun RecyclerView.addOnScrolledToEnd(
+    onScrolledToEnd: () -> Unit
+) {
     this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-        //private val visibleThreshold = 6
-
         private var loading = true
         private var previousTotal = 0
 
@@ -16,8 +14,9 @@ fun RecyclerView.addOnScrolledToEnd(onScrolledToEnd: () -> Unit) {
             recyclerView: RecyclerView,
             newState: Int
         ) {
+            val visibleThresholds = 6
 
-            with(layoutManager as GridLayoutManager) {
+            with(layoutManager as LinearLayoutManager) {
 
                 val visibleItemCount = childCount
                 val totalItemCount = itemCount
@@ -29,7 +28,7 @@ fun RecyclerView.addOnScrolledToEnd(onScrolledToEnd: () -> Unit) {
                     previousTotal = totalItemCount
                 }
 
-                if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 6)) {
+                if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThresholds)) {
 
                     onScrolledToEnd()
                     loading = true

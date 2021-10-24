@@ -1,4 +1,4 @@
-package com.megganbz.domain.model
+package com.megganbz.domain.model.characters
 
 import kotlinx.serialization.Serializable
 

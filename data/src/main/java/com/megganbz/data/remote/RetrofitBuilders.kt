@@ -14,9 +14,8 @@ fun buildClient(): OkHttpClient =
         })
         .build()
 
-fun buildRetrofit(): Retrofit {
+fun buildRetrofit(baseUrl: String): Retrofit {
     val contentType = "application/json".toMediaType()
-    val baseUrl = "https://gateway.marvel.com"
 
     return Retrofit.Builder()
         .client(buildClient())
@@ -28,5 +27,5 @@ fun buildRetrofit(): Retrofit {
         .build()
 }
 
-fun buildApiService(): RemoteApiService =
-    buildRetrofit().create(RemoteApiService::class.java)
+fun buildApiService(baseUrl: String): RemoteApiService =
+    buildRetrofit(baseUrl).create(RemoteApiService::class.java)

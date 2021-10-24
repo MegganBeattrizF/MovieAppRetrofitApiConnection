@@ -1,7 +1,7 @@
 package com.megganbz.data
 
 import com.megganbz.data.remote.RemoteApiService
-import com.megganbz.domain.model.Characters
+import com.megganbz.domain.model.characters.Characters
 import com.megganbz.domain.repository.ICharactersRepository
 
 class CharactersRepository(private val remoteApiService: RemoteApiService) : ICharactersRepository {

@@ -6,14 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.megganbz.data.CharactersRepository
 import com.megganbz.data.remote.buildApiService
-import com.megganbz.domain.model.Characters
+import com.megganbz.domain.model.characters.Characters
 import com.megganbz.domain.usecases.CharactersUseCases
 import com.megganbz.movieappretrofitapiconnection.utils.*
 import kotlinx.coroutines.launch
 
 class CharactersViewModel : ViewModel() {
 
-    private val apiService by lazy { buildApiService() }
+    private val baseUrl = "https://gateway.marvel.com"
+    private val apiService by lazy { buildApiService(baseUrl) }
     private var charactersUseCases = CharactersUseCases(CharactersRepository(apiService))
 
     private var _charactersList = MutableLiveData<Result<List<Characters>?>>()
@@ -23,12 +24,17 @@ class CharactersViewModel : ViewModel() {
     fun getCharactersList(limit: Int, offset: Int) {
         viewModelScope.launch {
             try {
-                _charactersList.postValue(Success(charactersUseCases.getCharactersList(limit, offset)))
-            } catch (e: CredentialException) {
-                _charactersList.postValue(Failure(e))
+                _charactersList.postValue(
+                    Success(
+                        charactersUseCases.getCharactersList(
+                            limit,
+                            offset
+                        )
+                    )
+                )
             } catch (e: NetworkException) {
                 _charactersList.postValue(Failure(e))
-            } catch (e: AuthorizationException) {
+            } catch (e: GeneralException) {
                 _charactersList.postValue(Failure(e))
             }
         }
