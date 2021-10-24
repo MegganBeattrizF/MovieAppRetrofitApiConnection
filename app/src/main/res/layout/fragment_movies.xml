@@ -18,9 +18,4 @@
             android:background="@color/purpleDarkLight" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <include
-        android:id="@+id/moviesProgressBar"
-        layout="@layout/progress_bar"
-        android:visibility="gone" />
 </FrameLayout>

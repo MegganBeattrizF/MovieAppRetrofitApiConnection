@@ -43,7 +43,12 @@ class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies)
         return binding.root
     }
 
+    private fun setProgressBarVisibility(visibility: Boolean) {
+        binding.refreshMovies.isRefreshing = visibility
+    }
+
     private fun setupViews() {
+        setProgressBarVisibility(true)
         binding.refreshMovies.setOnRefreshListener {
             currentPage = 1
             moviesAdapter.clearData()
@@ -74,7 +79,7 @@ class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies)
             viewModel.moviesList.observe(viewLifecycleOwner) {
                 when (it) {
                     is Success -> {
-                        binding.refreshMovies.isRefreshing = false
+                        setProgressBarVisibility(false)
                         if (currentPage > 1) {
                             moviesAdapter.updateList(it.data)
                         } else {
@@ -83,6 +88,7 @@ class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies)
                         }
                     }
                     is Failure -> {
+                        setProgressBarVisibility(false)
                         when (it.error) {
                             is NetworkException -> {
                                 Toast.makeText(

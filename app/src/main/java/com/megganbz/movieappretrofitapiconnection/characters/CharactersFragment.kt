@@ -44,7 +44,12 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
         return binding.root
     }
 
+    private fun setProgressBarVisibility(visibility: Boolean) {
+        binding.refreshCharacters.isRefreshing = visibility
+    }
+
     private fun setupViews() {
+        setProgressBarVisibility(true)
         binding.refreshCharacters.setOnRefreshListener {
             currentPage = 1
             offset = 0
@@ -81,7 +86,7 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
             viewModel.charactersList.observe(viewLifecycleOwner) {
                 when (it) {
                     is Success -> {
-                        binding.refreshCharacters.isRefreshing = false
+                        setProgressBarVisibility(false)
                         if (currentPage > 1) {
                             charactersAdapter.updateList(it.data)
                         } else {
@@ -91,6 +96,7 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
                         }
                     }
                     is Failure -> {
+                        setProgressBarVisibility(false)
                         when (it.error) {
                             is NetworkException -> {
                                 Toast.makeText(
