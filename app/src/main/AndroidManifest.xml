@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieAppRetrofitApiConnection"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DescriptionMovieActivity"></activity>
+        <activity android:name=".movies.DescriptionMovieActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

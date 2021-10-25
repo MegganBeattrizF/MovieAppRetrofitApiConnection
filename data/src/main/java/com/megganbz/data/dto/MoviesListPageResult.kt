@@ -1,6 +1,6 @@
 package com.megganbz.data.dto
 
-import com.megganbz.domain.model.Movie
+import com.megganbz.domain.movies.Movie
 import kotlinx.serialization.Serializable
 
 @Serializable

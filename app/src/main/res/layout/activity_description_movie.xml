@@ -40,13 +40,15 @@
 
                 <TextView
                     android:id="@+id/textViewTitleValue"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="32dp"
+                    android:layout_marginEnd="88dp"
+                    android:layout_marginStart="16dp"
                     android:fontFamily="@font/roboto_bold"
                     android:textColor="@color/white"
                     android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Titulo" />
@@ -84,7 +86,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/roboto"
                     android:textColor="@color/gray"
@@ -187,7 +188,6 @@
                     android:layout_width="0dp"
                     android:layout_height="70dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     app:cardBackgroundColor="@color/purpleDarkLight"
@@ -281,7 +281,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
                     android:fontFamily="@font/roboto"
                     android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -339,6 +338,7 @@
                         android:id="@+id/imageViewDirector"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:scaleType="centerCrop"
                         android:contentDescription="@string/contentDescriptionImageDirector"
                         tools:srcCompat="@tools:sample/avatars" />
                 </androidx.cardview.widget.CardView>

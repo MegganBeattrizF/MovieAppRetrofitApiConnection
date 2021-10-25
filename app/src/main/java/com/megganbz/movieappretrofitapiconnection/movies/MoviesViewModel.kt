@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.megganbz.data.MoviesRepository
 import com.megganbz.data.remote.buildApiService
-import com.megganbz.domain.model.Movie
+import com.megganbz.domain.movies.Movie
 import com.megganbz.domain.usecases.MoviesUseCases
 import com.megganbz.movieappretrofitapiconnection.utils.*
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ class MoviesViewModel : ViewModel() {
                 _moviesList.postValue(Success(moviesUseCases.getPopularMoviesList(page)))
             } catch (e: NetworkException) {
                 _moviesList.postValue(Failure(e))
-            } catch (e: GeneralException){
+            } catch (e: GeneralException) {
                 _moviesList.postValue(Failure(e))
             }
         }
