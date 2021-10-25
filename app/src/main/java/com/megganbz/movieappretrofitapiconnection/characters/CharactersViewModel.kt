@@ -21,6 +21,10 @@ class CharactersViewModel : ViewModel() {
     val charactersList: LiveData<Result<List<Characters>?>>
         get() = _charactersList
 
+    private var _charactersDetails = MutableLiveData<Result<List<Characters>?>>()
+    val charactersDetails: LiveData<Result<List<Characters>?>>
+        get() = _charactersDetails
+
     fun getCharactersList(limit: Int, offset: Int) {
         viewModelScope.launch {
             try {
@@ -36,6 +40,24 @@ class CharactersViewModel : ViewModel() {
                 _charactersList.postValue(Failure(e))
             } catch (e: GeneralException) {
                 _charactersList.postValue(Failure(e))
+            }
+        }
+    }
+
+    fun getCharactersDetails(characterId: Int) {
+        viewModelScope.launch {
+            try {
+                _charactersDetails.postValue(
+                    Success(
+                        charactersUseCases.getCharactersDetails(
+                            characterId
+                        )
+                    )
+                )
+            } catch (e: NetworkException) {
+                _charactersDetails.postValue(Failure(e))
+            } catch (e: GeneralException) {
+                _charactersDetails.postValue(Failure(e))
             }
         }
     }

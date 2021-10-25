@@ -23,6 +23,12 @@
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="16dp">
 
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="textCharactersMenu, textMoviesMenu, textVideosMenu"
+                app:barrierDirection="bottom"/>
             <TextView
                 android:id="@+id/textCharactersMenu"
                 android:layout_width="wrap_content"
@@ -41,11 +47,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/textMoviesTitle"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/textCharactersMenu"
-                app:layout_constraintStart_toEndOf="@+id/textCharactersMenu" />
+                app:layout_constraintStart_toEndOf="@+id/textCharactersMenu"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textVideosMenu"
@@ -53,10 +60,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/roboto"
+                android:layout_marginTop="8dp"
                 android:text="@string/textVideosTitle"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/textMoviesMenu"
-                app:layout_constraintStart_toEndOf="@+id/textMoviesMenu" />
+                app:layout_constraintStart_toEndOf="@+id/textMoviesMenu"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <SearchView
                 android:id="@+id/searchView"
@@ -69,7 +77,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButtonFilters"
                 app:layout_constraintStart_toStartOf="@+id/textCharactersMenu"
-                app:layout_constraintTop_toBottomOf="@+id/textCharactersMenu"
+                app:layout_constraintTop_toBottomOf="@+id/barrierHome"
                 tools:targetApi="lollipop" />
 
             <ImageButton
