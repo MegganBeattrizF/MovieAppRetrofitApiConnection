@@ -1,11 +1,12 @@
 package com.megganbz.movieappretrofitapiconnection.movies
 
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.AdapterView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -86,29 +87,46 @@ class MoviesFragment : MainActivity.FragmentController(R.layout.fragment_movies)
                             moviesAdapter = MoviesAdapter(it.data?.toCollection(arrayListOf()))
                             recyclerViewMovies.adapter = moviesAdapter
                         }
+                        setItemClickListener()
                     }
                     is Failure -> {
                         setProgressBarVisibility(false)
                         when (it.error) {
                             is NetworkException -> {
-                                Toast.makeText(
-                                    context,
-                                    it.error.getLocalizedMessage(requireContext()),
-                                    Toast.LENGTH_LONG
-                                ).show()
+
                             }
                             is GeneralException -> {
-                                Toast.makeText(
-                                    context,
-                                    it.error.getLocalizedMessage(requireContext()),
-                                    Toast.LENGTH_LONG
-                                ).show()
+
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun setItemClickListener() {
+        recyclerViewMovies.addOnItemTouchListener(
+            RecyclerItemClickListener(
+                context,
+                recyclerViewMovies,
+                object : RecyclerItemClickListener.OnItemClickListener {
+                    override fun onItemClick(view: View?, position: Int) {
+                        val intent = Intent(context, DescriptionMovieActivity::class.java)
+                        intent.putExtra("itemId", moviesAdapter.getItemClickId(position))
+                        startActivity(intent)
+                    }
+
+                    override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+                    }
+
+                    override fun onLongItemClick(view: View?, position: Int) {
+
+                    }
+
+                })
+        )
     }
 
     override fun onDestroyView() {

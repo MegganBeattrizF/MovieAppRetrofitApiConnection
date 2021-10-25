@@ -99,18 +99,10 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
                         setProgressBarVisibility(false)
                         when (it.error) {
                             is NetworkException -> {
-                                Toast.makeText(
-                                    context,
-                                    it.error.getLocalizedMessage(requireContext()),
-                                    Toast.LENGTH_LONG
-                                ).show()
+
                             }
                             is GeneralException -> {
-                                Toast.makeText(
-                                    context,
-                                    it.error.getLocalizedMessage(requireContext()),
-                                    Toast.LENGTH_LONG
-                                ).show()
+
                             }
                         }
                     }

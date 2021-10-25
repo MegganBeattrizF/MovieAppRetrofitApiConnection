@@ -1,9 +1,10 @@
-package com.megganbz.domain.model
+package com.megganbz.domain.movies
 
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Movie(
+    val id: Int,
     val title: String,
     val original_title: String,
     val vote_count: Int,

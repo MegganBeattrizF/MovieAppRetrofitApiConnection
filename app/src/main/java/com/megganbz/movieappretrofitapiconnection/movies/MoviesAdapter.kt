@@ -8,7 +8,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.megganbz.domain.model.Movie
+import com.megganbz.domain.movies.Movie
 import com.megganbz.movieappretrofitapiconnection.R
 
 class MoviesAdapter(
@@ -31,6 +31,11 @@ class MoviesAdapter(
             notifyDataSetChanged()
         }
 
+    }
+
+    fun getItemClickId(position: Int): Int {
+        val movie = moviesList?.get(position)
+        return movie?.id ?: 0
     }
 
     fun clearData() {
