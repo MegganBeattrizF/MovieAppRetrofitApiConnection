@@ -30,7 +30,6 @@ class MoviesAdapter(
             moviesList?.addAll(it)
             notifyDataSetChanged()
         }
-
     }
 
     fun getItemClickId(position: Int): Int {
@@ -62,8 +61,12 @@ class MoviesAdapter(
             ratingBarPopularity.rating = (movie.vote_average.div(2)).toFloat()
             Glide
                 .with(itemView.context)
-                .load("https://image.tmdb.org/t/p/w342${movie.poster_path}")
+                .load("$URL_MOVIES_IMAGE${movie.poster_path}")
                 .into(imageViewMoviePoster)
         }
+    }
+
+    companion object {
+        private const val URL_MOVIES_IMAGE = "https://image.tmdb.org/t/p/w342"
     }
 }

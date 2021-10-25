@@ -19,6 +19,14 @@ interface RemoteApiService {
         @Query("hash") hash: String = getHash()
     ): CharacterDataWrapper?
 
+    @GET("/v1/public/characters/{charactersId}")
+    suspend fun getCharactersDetails(
+        @Path("charactersId") characterId: Int,
+        @Query("apikey") apiKey: String,
+        @Query("ts") timestamp: String = getTimeStamp(),
+        @Query("hash") hash: String = getHash()
+    ): CharacterDataWrapper?
+
     @GET("movie/popular")
     suspend fun getPopularMoviesList(
         @Query("api_key") apiKey: String,

@@ -10,13 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCharacters"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/purpleDarkLight"
-        android:paddingEnd="32dp"
-        android:paddingStart="0dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCharacters"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/purpleDarkLight"
+            android:paddingStart="0dp"
+            android:paddingEnd="32dp"
+            tools:itemCount="2"
+            tools:listitem="@layout/recycler_item_characters" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

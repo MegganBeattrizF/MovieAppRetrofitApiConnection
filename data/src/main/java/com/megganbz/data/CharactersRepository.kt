@@ -14,4 +14,13 @@ class CharactersRepository(private val remoteApiService: RemoteApiService) : ICh
             emptyList()
         }
     }
+
+    override suspend fun getCharactersDetails(characterId: Int): List<Characters>? {
+        return try {
+            remoteApiService.getCharactersDetails(characterId, apiKey)?.data?.results
+        } catch (e: Throwable) {
+            Throwable(e)
+            emptyList()
+        }
+    }
 }
