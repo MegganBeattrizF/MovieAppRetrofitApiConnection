@@ -1,4 +1,4 @@
-package com.megganbz.data
+package com.megganbz.data.repository
 
 import com.megganbz.data.remote.RemoteApiService
 import com.megganbz.domain.model.characters.Characters

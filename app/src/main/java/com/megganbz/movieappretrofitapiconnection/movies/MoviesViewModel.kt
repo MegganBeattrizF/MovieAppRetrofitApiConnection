@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.megganbz.data.MoviesRepository
+import com.megganbz.data.repository.MoviesRepository
 import com.megganbz.data.remote.buildApiService
 import com.megganbz.domain.movies.Movie
 import com.megganbz.domain.usecases.MoviesUseCases

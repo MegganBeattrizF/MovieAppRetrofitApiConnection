@@ -5,19 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.megganbz.movieappretrofitapiconnection.MainActivity
 import com.megganbz.movieappretrofitapiconnection.R
 import com.megganbz.movieappretrofitapiconnection.databinding.FragmentCharactersBinding
+import com.megganbz.movieappretrofitapiconnection.favorites.FavoritesViewModel
 import com.megganbz.movieappretrofitapiconnection.utils.*
 
 class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_characters) {
     private var _binding: FragmentCharactersBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CharactersViewModel by viewModels()
+    private val viewModelFavorites: FavoritesViewModel by viewModels()
     private var currentPage: Int = 1
     private var offset: Int = 0
     private val limit = 20
@@ -53,7 +54,7 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
         binding.refreshCharacters.setOnRefreshListener {
             currentPage = 1
             offset = 0
-            charactersAdapter.clearData()
+            charactersAdapter.clearListData()
             viewModel.getCharactersList(limit, offset)
         }
         viewModel.getCharactersList(limit, offset)
@@ -72,7 +73,7 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
     }
 
     private fun updateDataList() {
-        recyclerViewCharacters.addOnScrolledToEnd() {
+        recyclerViewCharacters.addOnScrolledToEnd {
             binding.refreshCharacters.isRefreshing = true
 
             offset = currentPage * limit
@@ -88,10 +89,23 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
                     is Success -> {
                         setProgressBarVisibility(false)
                         if (currentPage > 1) {
-                            charactersAdapter.updateList(it.data)
+                            charactersAdapter.updateListData(it.data)
                         } else {
                             charactersAdapter =
-                                CharactersAdapter(it.data?.toCollection(arrayListOf()))
+                                CharactersAdapter(it.data?.toCollection(arrayListOf()),
+                                    listenerAddToFavorites = { addFavoriteCharacter ->
+                                        addFavoriteCharacter?.let { characterLet ->
+                                            viewModel.saveFavoriteCharacter(
+                                                characterLet
+                                            )
+                                        }
+                                    }, listenerRemoveToFavorites = { removeFavoriteCharacter ->
+                                        removeFavoriteCharacter?.id?.let { it1 ->
+                                            viewModelFavorites.removeCharactersById(
+                                                it1
+                                            )
+                                        }
+                                    })
                             recyclerViewCharacters.adapter = charactersAdapter
                         }
                     }

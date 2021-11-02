@@ -27,4 +27,6 @@
     <string name="genericError">Ops!!!\nTivemos um problema com nosso servidor\nque tal tentar novamente mais tarde.</string>
     <string name="emptyDataError">Desculpe\nnão encontramos nenhuma informação por aqui.</string>
     <string name="internetError">Hmm..\nParece que você está sem internet\nTente reconectar á alguma rede WiFi ou dados móveis.</string>
+    <string name="itemMenuClearAllData">Excluir Favoritos</string>
+    <string name="toolbarFavoritesTitle">Lista de Favoritos</string>
 </resources>

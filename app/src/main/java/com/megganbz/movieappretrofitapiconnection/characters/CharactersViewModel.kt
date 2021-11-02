@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.megganbz.data.CharactersRepository
 import com.megganbz.data.remote.buildApiService
+import com.megganbz.data.repository.CharactersRepository
+import com.megganbz.data.repository.FavoriteRepository
 import com.megganbz.domain.model.characters.Characters
 import com.megganbz.domain.usecases.CharactersUseCases
+import com.megganbz.domain.usecases.FavoritesUseCases
 import com.megganbz.movieappretrofitapiconnection.utils.*
 import kotlinx.coroutines.launch
 
@@ -15,7 +17,8 @@ class CharactersViewModel : ViewModel() {
 
     private val baseUrl = "https://gateway.marvel.com"
     private val apiService by lazy { buildApiService(baseUrl) }
-    private var charactersUseCases = CharactersUseCases(CharactersRepository(apiService))
+    private val charactersUseCases = CharactersUseCases(CharactersRepository(apiService))
+    private val favoritesUseCases = FavoritesUseCases(FavoriteRepository())
 
     private var _charactersList = MutableLiveData<Result<List<Characters>?>>()
     val charactersList: LiveData<Result<List<Characters>?>>
@@ -59,6 +62,12 @@ class CharactersViewModel : ViewModel() {
             } catch (e: GeneralException) {
                 _charactersDetails.postValue(Failure(e))
             }
+        }
+    }
+
+    fun saveFavoriteCharacter(characters: Characters) {
+        viewModelScope.launch {
+            favoritesUseCases.addCharacters(characters)
         }
     }
 }

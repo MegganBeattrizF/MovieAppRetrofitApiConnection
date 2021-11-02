@@ -1,5 +1,7 @@
 package com.megganbz.movieappretrofitapiconnection.characters
 
+import android.annotation.SuppressLint
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +10,21 @@ import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.megganbz.data.utils.App
 import com.megganbz.domain.model.characters.Characters
 import com.megganbz.movieappretrofitapiconnection.R
+import com.megganbz.movieappretrofitapiconnection.utils.FavoriteStatusChecker
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
-
+@SuppressLint("NotifyDataSetChanged")
 class CharactersAdapter(
-    private var charactersList: ArrayList<Characters>? = arrayListOf()
+    private var charactersList: ArrayList<Characters>? = arrayListOf(),
+    private val listenerAddToFavorites: (Characters?) -> Unit,
+    private val listenerRemoveToFavorites: (Characters?) -> Unit
 ) : RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
+    private val idCharacterList: ArrayList<Int> = arrayListOf()
+    private var mLastClickTime: Long = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -24,18 +34,48 @@ class CharactersAdapter(
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
         holder.bind(charactersList?.get(position))
+        holder.addFavoriteToggleButton.setOnCheckedChangeListener { _, _ ->
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                return@setOnCheckedChangeListener
+            }
+            mLastClickTime = SystemClock.elapsedRealtime()
+            setFavoriteFavoriteCharacter(holder, position)
+        }
+    }
+
+    private fun setFavoriteFavoriteCharacter(
+        holder: CharactersViewHolder,
+        position: Int
+    ) {
+        if (!FavoriteStatusChecker().isFavoriteItem(charactersList?.get(position)?.id)) {
+            holder.addFavoriteToggleButton.setBackgroundResource(R.drawable.ic_round_favorite_24)
+            listenerAddToFavorites(charactersList?.get(position))
+            saveFavoriteCharacterPreference(charactersList?.get(position))
+        } else {
+            holder.addFavoriteToggleButton.setBackgroundResource(R.drawable.ic_round_favorite_border_24)
+            listenerRemoveToFavorites(charactersList?.get(position))
+            idCharacterList.remove(charactersList?.get(position)?.id)
+        }
+    }
+
+    private fun saveFavoriteCharacterPreference(character: Characters?) {
+        val edit = App.sharedPreference.edit()
+        idCharacterList.add(character?.id ?: 0)
+        val jsonFavoriteItemList = Json.encodeToString(idCharacterList)
+        edit?.putString(PREFERENCES_KEY, jsonFavoriteItemList)
+        edit?.apply()
     }
 
     override fun getItemCount(): Int = charactersList?.size ?: 0
 
-    fun updateList(data: List<Characters>?) {
+    fun updateListData(data: List<Characters>?) {
         data?.let {
             charactersList?.addAll(it)
             notifyDataSetChanged()
         }
     }
 
-    fun clearData() {
+    fun clearListData() {
         charactersList?.clear()
         notifyDataSetChanged()
     }
@@ -43,23 +83,28 @@ class CharactersAdapter(
     inner class CharactersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageCharacter: ImageView = itemView.findViewById(R.id.imageViewCharacter)
         private val nameCharacter: TextView = itemView.findViewById(R.id.textViewCharacterName)
-        private val addFavoriteToggleButton: ToggleButton =
+        val addFavoriteToggleButton: ToggleButton =
             itemView.findViewById(R.id.toggleButtonAddFavoriteCharacter)
 
         fun bind(character: Characters?) {
             character ?: return
-            addFavoriteToggleButton.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    addFavoriteToggleButton.setBackgroundResource(R.drawable.ic_round_favorite_24)
-                } else {
-                    addFavoriteToggleButton.setBackgroundResource(R.drawable.ic_round_favorite_border_24)
-                }
+
+            if (FavoriteStatusChecker().isFavoriteItem(character.id)) {
+                idCharacterList.add(character.id ?: 0)
+                addFavoriteToggleButton.setBackgroundResource(R.drawable.ic_round_favorite_24)
+            } else {
+                addFavoriteToggleButton.setBackgroundResource(R.drawable.ic_round_favorite_border_24)
             }
             Glide
                 .with(itemView.context)
-                .load(character.thumbnail?.path + ".${character.thumbnail?.extension}")
+                .load(character.thumbnail?.path + "/" + PORTRAIT_ASPECT_RATIO + ".${character.thumbnail?.extension}")
                 .into(imageCharacter)
             nameCharacter.text = character.name
         }
+    }
+
+    companion object {
+        const val PORTRAIT_ASPECT_RATIO = "portrait_uncanny"
+        const val PREFERENCES_KEY = "id"
     }
 }
