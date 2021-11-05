@@ -37,7 +37,6 @@
                     android:layout_height="wrap_content"
                     android:textOn=""
                     android:textOff=""
-                    android:checked="false"
                     android:background="@drawable/ic_round_favorite_border_24"
                     android:contentDescription="@string/contentDescriptionAddFavoriteCharacter" />
             </LinearLayout>

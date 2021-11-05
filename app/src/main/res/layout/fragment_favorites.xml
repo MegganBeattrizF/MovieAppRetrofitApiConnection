@@ -5,28 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purpleDark"
-    tools:context=".FavoritesFragment">
+    tools:context=".favorites.FavoritesFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarFavorites"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/purpleDarkLight"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Lista de Favoritos"
+        app:menu="@menu/toolbar_favorites_menu"
+        app:title="@string/toolbarFavoritesTitle"
         app:titleTextColor="@color/white" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerFavorites"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshFavoriteCharacters"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarFavorites"
-        tools:itemCount="3"
-        tools:layout_editor_absoluteX="138dp"
-        tools:listitem="@layout/recycler_item_favorite" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarFavorites">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="3"
+            tools:layout_editor_absoluteX="138dp"
+            tools:listitem="@layout/recycler_item_favorite" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

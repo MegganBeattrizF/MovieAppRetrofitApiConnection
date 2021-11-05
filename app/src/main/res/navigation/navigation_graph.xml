@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.megganbz.movieappretrofitapiconnection.FavoritesFragment"
+        android:name="com.megganbz.movieappretrofitapiconnection.favorites.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
