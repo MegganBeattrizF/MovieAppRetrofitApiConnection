@@ -9,9 +9,9 @@ import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.megganbz.data.utils.FavoriteStatusChecker
 import com.megganbz.domain.model.characters.Characters
 import com.megganbz.movieappretrofitapiconnection.R
-import com.megganbz.movieappretrofitapiconnection.utils.FavoriteStatusChecker
 
 @SuppressLint("NotifyDataSetChanged")
 class FavoritesAdapter(

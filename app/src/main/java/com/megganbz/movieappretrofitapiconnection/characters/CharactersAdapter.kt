@@ -10,20 +10,17 @@ import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.megganbz.data.utils.App
+import com.megganbz.data.utils.FavoriteStatusChecker
 import com.megganbz.domain.model.characters.Characters
 import com.megganbz.movieappretrofitapiconnection.R
-import com.megganbz.movieappretrofitapiconnection.utils.FavoriteStatusChecker
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 @SuppressLint("NotifyDataSetChanged")
 class CharactersAdapter(
     private var charactersList: ArrayList<Characters>? = arrayListOf(),
-    private val listenerAddToFavorites: (Characters?) -> Unit,
+    private val listenerAddToFavorites: (Characters?, MutableList<Int>) -> Unit,
     private val listenerRemoveToFavorites: (Characters?) -> Unit
 ) : RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
-    private val idCharacterList: ArrayList<Int> = arrayListOf()
+    private val idCharacterList: MutableList<Int> = mutableListOf()
     private var mLastClickTime: Long = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
@@ -49,21 +46,13 @@ class CharactersAdapter(
     ) {
         if (!FavoriteStatusChecker().isFavoriteItem(charactersList?.get(position)?.id)) {
             holder.addFavoriteToggleButton.setBackgroundResource(R.drawable.ic_round_favorite_24)
-            listenerAddToFavorites(charactersList?.get(position))
-            saveFavoriteCharacterPreference(charactersList?.get(position))
+            idCharacterList.add(charactersList?.get(position)?.id ?: 0)
+            listenerAddToFavorites(charactersList?.get(position), idCharacterList)
         } else {
             holder.addFavoriteToggleButton.setBackgroundResource(R.drawable.ic_round_favorite_border_24)
             listenerRemoveToFavorites(charactersList?.get(position))
             idCharacterList.remove(charactersList?.get(position)?.id)
         }
-    }
-
-    private fun saveFavoriteCharacterPreference(character: Characters?) {
-        val edit = App.sharedPreference.edit()
-        idCharacterList.add(character?.id ?: 0)
-        val jsonFavoriteItemList = Json.encodeToString(idCharacterList)
-        edit?.putString(PREFERENCES_KEY, jsonFavoriteItemList)
-        edit?.apply()
     }
 
     override fun getItemCount(): Int = charactersList?.size ?: 0
@@ -105,6 +94,5 @@ class CharactersAdapter(
 
     companion object {
         const val PORTRAIT_ASPECT_RATIO = "portrait_uncanny"
-        const val PREFERENCES_KEY = "id"
     }
 }

@@ -65,9 +65,10 @@ class CharactersViewModel : ViewModel() {
         }
     }
 
-    fun saveFavoriteCharacter(characters: Characters) {
+    fun saveFavoriteCharacter(characters: Characters, idCharacterList: MutableList<Int>) {
         viewModelScope.launch {
             favoritesUseCases.addCharacters(characters)
+            favoritesUseCases.saveFavoritePreferences(characters, idCharacterList)
         }
     }
 }

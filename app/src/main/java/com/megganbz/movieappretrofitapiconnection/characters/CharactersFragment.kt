@@ -93,10 +93,11 @@ class CharactersFragment : MainActivity.FragmentController(R.layout.fragment_cha
                         } else {
                             charactersAdapter =
                                 CharactersAdapter(it.data?.toCollection(arrayListOf()),
-                                    listenerAddToFavorites = { addFavoriteCharacter ->
+                                    listenerAddToFavorites = { addFavoriteCharacter, idCharacterList ->
                                         addFavoriteCharacter?.let { characterLet ->
                                             viewModel.saveFavoriteCharacter(
-                                                characterLet
+                                                characterLet,
+                                                idCharacterList
                                             )
                                         }
                                     }, listenerRemoveToFavorites = { removeFavoriteCharacter ->

@@ -7,4 +7,7 @@ interface IFavoriteRepository {
     suspend fun getFavoriteCharacters(): List<Characters>?
     suspend fun removeAllCharacters()
     suspend fun removeCharactersById(id: Int)
+    suspend fun removeFavoritePreferencesById(id: Int)
+    suspend fun saveFavoritePreferences(characters: Characters, idCharacterList: MutableList<Int>)
+    suspend fun removeAllFavoritesPreferences()
 }
